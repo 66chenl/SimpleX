@@ -1,6 +1,6 @@
 # Datasets
 
-We have evaluated SimpleX on the following preprocessed datasets that have been used by previous work.
+We have evaluated SimpleX on the following preprocessed datasets that have been used by some previous work.
 
 + [AmazonBooks](./Amazon/AmazonBooks_m1) used by [LightGCN](https://github.com/kuandeng/LightGCN)
 + [Yelp18](./Yelp/Yelp18_m1) used by [LightGCN](https://github.com/kuandeng/LightGCN)
