@@ -12,7 +12,7 @@ with open("train.txt", "r") as fid:
         user_history_dict[user_id] = items
         for item in items:
             if item not in corpus_index:
-                corpus_index[item] = len(corpus_index)
+                corpus_index[item] = int(item)
                 item_corpus.append([corpus_index[item], item])
             history = user_history_dict[user_id].copy()
             history.remove(item)
@@ -29,7 +29,7 @@ with open("test.txt", "r") as fid:
         items = splits[1:]
         for item in items:
             if item not in corpus_index:
-                corpus_index[item] = len(corpus_index)
+                corpus_index[item] = int(item)
                 item_corpus.append([corpus_index[item], item])
             history = user_history_dict[user_id].copy()
             test_data.append([user_id, corpus_index[item], 1, user_id, "^".join(history)])
@@ -39,6 +39,6 @@ test.to_csv("test.csv", index=False)
 
 corpus = pd.DataFrame(item_corpus, columns=["corpus_index", "item_id"])
 print("number of items:", len(item_corpus))
-corpus = corpus.set_index("corpus_index")
+corpus = corpus.set_index("corpus_index").sort_index()
 corpus.to_csv("item_corpus.csv", index=False)
 

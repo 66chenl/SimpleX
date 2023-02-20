@@ -1,0 +1,49 @@
+base_config: ../config/
+base_expid: SimpleX_base
+dataset_id: amazonmovies_x0
+
+dataset_config:
+    amazonmovies_x0:
+        data_root: ../data/AmazonMovies/
+        data_format: csv
+        train_data: ../data/AmazonMovies/amazonmovies_x0/train.csv
+        valid_data: ../data/AmazonMovies/amazonmovies_x0/test.csv
+        item_corpus: ../data/AmazonMovies/amazonmovies_x0/item_corpus.csv
+        min_categr_count: 1
+        query_index: query_index
+        corpus_index: corpus_index
+        feature_cols:
+            - {'name': 'query_index', 'active': True, 'dtype': int, 'type': 'index'}
+            - {'name': 'corpus_index', 'active': True, 'dtype': int, 'type': 'index'}
+            - {'name': 'user_id', 'active': True, 'dtype': str, 'type': 'categorical', 'source': 'user'}
+            - {'name': 'user_history', 'active': True, 'dtype': str, 'type': 'sequence', 'source': 'user', 'splitter': '^',
+               'max_len': 500, 'padding': 'pre', 'embedding_callback': null}
+            - {'name': 'item_id', 'active': True, 'dtype': str, 'type': 'categorical', 'source': 'item', 'share_embedding': 'user_history'}
+        label_col: {name: label, dtype: float}
+
+tuner_space:
+    model_root: './AmazonMovies/SimpleX_amazonmovies_x0/'
+    learning_rate: 1.e-3
+    embedding_dim: 64
+    num_negs: [200, 500, 800]
+    embedding_regularizer: 1.e-6
+    similarity_score: cosine
+    loss: CosineContrastiveLoss
+    user_id_field: user_id
+    item_id_field: item_id
+    user_history_field: user_history
+    aggregator: mean
+    gamma: [1, 0]
+    net_dropout: 0
+    negative_weight: [30, 50]
+    margin: 0.9
+    ignore_pos_items: False
+    sampling_num_process: 1
+    enable_bias: False
+    batch_size: 1024
+    seed: 2019
+    monitor: 'Recall(k=20)'
+    metrics: [['Recall(k=20)', 'Recall(k=50)', 'NDCG(k=20)', 'NDCG(k=50)', 'HitRate(k=20)', 'HitRate(k=50)']]
+
+
+
