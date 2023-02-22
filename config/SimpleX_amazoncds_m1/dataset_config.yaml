@@ -1,9 +1,9 @@
-yelp18_m1_9217a019:
-    data_root: ../../data/Yelp18/
+amazoncds_m1_3215e010:
+    data_root: ./data/Amazon/
     data_format: csv
-    train_data: ../../data/Yelp18/yelp18_m1/train.csv
-    valid_data: ../../data/Yelp18/yelp18_m1/test.csv
-    item_corpus: ../../data/Yelp18/yelp18_m1/item_corpus.csv
+    train_data: ./data/Amazon/AmazonCDs_m1/train.csv
+    valid_data: ./data/Amazon/AmazonCDs_m1/test.csv
+    item_corpus: ./data/Amazon/AmazonCDs_m1/item_corpus.csv
     min_categr_count: 1
     query_index: query_index
     corpus_index: corpus_index
