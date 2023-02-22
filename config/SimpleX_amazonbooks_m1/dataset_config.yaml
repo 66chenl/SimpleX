@@ -1,9 +1,9 @@
 amazonbooks_m1_fea71f7d:
-    data_root: ../../data/AmazonBooks/
+    data_root: ./data/Amazon/
     data_format: csv
-    train_data: ../../data/AmazonBooks/amazonbooks_m1/train.csv
-    valid_data: ../../data/AmazonBooks/amazonbooks_m1/test.csv
-    item_corpus: ../../data/AmazonBooks/amazonbooks_m1/item_corpus.csv
+    train_data: ./data/Amazon/AmazonBooks_m1/train.csv
+    valid_data: ./data/Amazon/AmazonBooks_m1/test.csv
+    item_corpus: ./data/Amazon/AmazonBooks_m1/item_corpus.csv
     min_categr_count: 1
     query_index: query_index
     corpus_index: corpus_index

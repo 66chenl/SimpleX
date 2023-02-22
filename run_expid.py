@@ -58,7 +58,8 @@ if __name__ == '__main__':
         params["valid_data"] = os.path.join(data_dir, 'valid.h5')
         params["test_data"] = os.path.join(data_dir, 'test.h5') if "test_data" in params else None
         params["item_corpus"] = os.path.join(data_dir, 'item_corpus.h5')
-    feature_map = FeatureMap(params['dataset_id'], data_dir)
+    feature_map = FeatureMap(params['dataset_id'], data_dir, params['query_index'], 
+                             params['corpus_index'], params['label_col']['name'])
     feature_map.load(feature_map_json)
 
     # define the model 
@@ -78,7 +79,7 @@ if __name__ == '__main__':
     gc.collect()
     
     test_result = dict()
-    if "test_data" in params:
+    if params.get("test_data"):
         logging.info('******** Test evaluation ********')
         test_gen = datasets.h5_generator(feature_map, stage='test', **params)
         test_result = model.evaluate(train_gen, test_gen)
