@@ -6,12 +6,43 @@ SimpleX is a simple and strong baseline model for collaborative filtering tasks.
 
 ## Model Structure
 
-SimpleX presents a simple unified CF model, which follows the commonly-used two-tower network structure to support efficient retrieval from a large item corpus. The user tower outputs a weighted combination of user profile embedding and aggregated behavior sequence embedding. The model structure is general, and with appropriate settings, it can instantiate related models such as MF, YouTubeNet, and one-hop GNN.
-Based on the model, we evaluate the effectiveness of cosine contrastive loss and negative sampling. 
+SimpleX presents a simple unified CF model, which follows the commonly-used two-tower network structure to support efficient retrieval from a large item corpus. The user tower outputs a weighted combination of user profile embedding and aggregated behavior sequence embedding. The model structure is general, and with appropriate settings, it can instantiate related models such as MF, YouTubeNet, and one-hop GNN. Based on the model, we evaluate the effectiveness of cosine contrastive loss and negative sampling. 
 
 <div align="center">
-<img src="./img/simplex.png" width="350" alt="SimpleX model"/>
+<img src="https://cdn.jsdelivr.net/gh/xue-pai/SimpleX@main/img/simplex.png" width="320" alt="SimpleX model"/>
 </div>
+
+
+## Environments
+
+Note that our experiments were conducted in the following environment settings. To reproduce our results, we strongly suggest to use the same settings. However, the source code itself can be possibly run with some higher Pytorch versions (e.g., Pytorch 1.11.0). 
+
++ Hardware
+
+  ```python
+  CPU: Intel(R) Xeon(R) CPU E5-2690 v4 @ 2.60GHz
+  GPU: Tesla P100 16G
+  RAM: 755G
+
+  ```
+
++ Software
+
+  ```python
+  CUDA: 10.0
+  python: 3.6.5
+  pytorch: 1.0.1.post2
+  pandas: 0.23.0
+  numpy: 1.18.1
+  scipy: 1.1.0
+  sklearn: 0.23.1
+  pyyaml: 5.1
+  h5py: 2.7.1
+  tqdm: 4.59.0
+  faiss-cpu: 1.7.0
+  recbox 0.0.3
+  ```
+  🤗 Please install the [matchbox](https://github.com/xue-pai/MatchBox/tree/v0.0.3) library via `pip install recbox==0.0.3`.
 
 
 ## Configuration Guide
@@ -87,41 +118,6 @@ Based on the model, we evaluate the effectiveness of cosine contrastive loss and
     monitor_mode: 'max'  # `max`/`min`, indicate the higher the better or the lower the better for the monitor metric
     ```
 
-
-
-## Environments
-
-Note that our experiments were conducted in the following environment settings. To reproduce our results, we strongly suggest to use the same settings. However, the source code itself can be possibly run with some higher Pytorch versions (e.g., Pytorch 1.11.0). 
-
-+ Hardware
-
-  ```python
-  CPU: Intel(R) Xeon(R) CPU E5-2690 v4 @ 2.60GHz
-  GPU: Tesla P100 16G
-  RAM: 755G
-
-  ```
-
-+ Software
-
-  ```python
-  CUDA: 10.0
-  python: 3.6.5
-  pytorch: 1.0.1.post2
-  pandas: 0.23.0
-  numpy: 1.18.1
-  scipy: 1.1.0
-  sklearn: 0.23.1
-  pyyaml: 5.1
-  h5py: 2.7.1
-  tqdm: 4.59.0
-  faiss-cpu: 1.7.0
-  recbox 0.0.3
-  ```
-
-🤗 Please install the [matchbox](https://github.com/xue-pai/MatchBox) library via `pip install recbox==0.0.3`.
-
-
 ## Results
 
 ### Results on Yelp18
@@ -132,9 +128,10 @@ Note that our experiments were conducted in the following environment settings. 
 |   ENMF [[TOIS'20](https://github.com/chenchongthu/ENMF)]       |  0.0650  |  0.0515 | 
 |     NGCF [[SIGIR'19](https://arxiv.org/abs/1905.08108)]    |   0.0579   |   0.0477   |
 |   LightGCN [[SIGIR'20](https://arxiv.org/abs/2002.02126)]  |   0.0649   |   0.0530   |
+|  SGL-ED [[SIGIR'21](https://arxiv.org/pdf/2010.10783.pdf)]  |   0.0675  |   0.0555   |
 |   UltraGCN [[CIKM'21](https://arxiv.org/abs/2110.15114)]  |   0.0683   |   0.0561   |
-| MF-CCL | 0.0698 | 0.0572 |
-| SimpleX | **0.0701** | **0.0575** |
+| MF-CCL [[CIKM'21](https://arxiv.org/abs/2109.12613)] | 0.0698 | 0.0572 |
+| SimpleX [[CIKM'21](https://arxiv.org/abs/2109.12613)] | **0.0701** | **0.0575** |
 
 + Follow the steps below to reproduce the results
 
@@ -161,8 +158,8 @@ Note that our experiments were conducted in the following environment settings. 
 |    NGCF [[SIGIR'19](https://arxiv.org/abs/1905.08108)]    |   0.1570   |   0.1327   |
 |  LightGCN [[SIGIR'20](https://arxiv.org/abs/2002.02126)]  |   0.1830   |   0.1554   |
 |  UltraGCN [[CIKM'21](https://arxiv.org/abs/2110.15114)]  |   0.1862   | **0.1580** |
-|   MF-CCL   |   0.1837   |   0.1493   |
-|   SimpleX  | **0.1872** |   0.1557   |
+|   MF-CCL [[CIKM'21](https://arxiv.org/abs/2109.12613)] |   0.1837   |   0.1493   |
+|   SimpleX [[CIKM'21](https://arxiv.org/abs/2109.12613)] | **0.1872** |   0.1557   |
 
 
 + Follow the steps below to reproduce the results
@@ -190,9 +187,10 @@ Note that our experiments were conducted in the following environment settings. 
 |   ENMF [[TOIS'20](https://github.com/chenchongthu/ENMF)]       | 0.0359  |  0.0281  | 
 |    NGCF [[SIGIR'19](https://arxiv.org/abs/1905.08108)]    |   0.0344   |   0.0263   |
 |  LightGCN [[SIGIR'20](https://arxiv.org/abs/2002.02126)]  |   0.0411   |   0.0315   |
+|  SGL-ED [[SIGIR'21](https://arxiv.org/pdf/2010.10783.pdf)]  |   0.0478   |   0.0379   |
 |  UltraGCN [[CIKM'21](https://arxiv.org/abs/2110.15114)]  | **0.0681** | **0.0556** |
-|   MF-CCL   |   0.0559   |   0.0447   |
-|   SimpleX  |   0.0583   |   0.0468   |
+|   MF-CCL [[CIKM'21](https://arxiv.org/abs/2109.12613)] |   0.0559   |   0.0447   |
+|   SimpleX [[CIKM'21](https://arxiv.org/abs/2109.12613)] |   0.0583   |   0.0468   |
 
 
 + Follow the steps below to reproduce the results
@@ -219,7 +217,7 @@ Note that our experiments were conducted in the following environment settings. 
 |:-------|:----------:|:----------:|
 |   NGCF [[SIGIR'19](https://arxiv.org/abs/1905.08108)]  |   0.1258   |   0.0792   |
 |   BGCF [[KDD'20](https://dl.acm.org/doi/10.1145/3394486.3403254)]  |   0.1506   |   0.0948   |
-| SimpleX | **0.1763** | **0.1145** |
+| SimpleX [[CIKM'21](https://arxiv.org/abs/2109.12613)] | **0.1763** | **0.1145** |
 
 
 + Follow the steps below to reproduce the results
@@ -243,7 +241,7 @@ Note that our experiments were conducted in the following environment settings. 
 |:-------|:----------:|:----------:|
 |   NGCF [[SIGIR'19](https://arxiv.org/abs/1905.08108)]  |   0.0866   |   0.0555   |
 |   BGCF [[KDD'20](https://dl.acm.org/doi/10.1145/3394486.3403254)]  |   0.1066   |   0.0693   |
-| SimpleX | **0.1342** | **0.0926** |
+| SimpleX [[CIKM'21](https://arxiv.org/abs/2109.12613)] | **0.1342** | **0.0926** |
 
 
 + Follow the steps below to reproduce the results
@@ -266,7 +264,7 @@ Note that our experiments were conducted in the following environment settings. 
 |:-------|:----------:|:----------:|
 |   NGCF [[SIGIR'19](https://arxiv.org/abs/1905.08108)]  |   0.1513   |   0.0917   |
 |   BGCF [[KDD'20](https://dl.acm.org/doi/10.1145/3394486.3403254)]  |   0.1534   |   0.0912   |
-| SimpleX | **0.1721** | **0.1028** |
+| SimpleX [[CIKM'21](https://arxiv.org/abs/2109.12613)] | **0.1721** | **0.1028** |
 
 + Follow the steps below to reproduce the results
 
@@ -289,7 +287,8 @@ Note that our experiments were conducted in the following environment settings. 
 |:-------|:----------:|:----------:|
 |   ENMF [[TOIS'20](https://github.com/chenchongthu/ENMF)]  |   0.0314   |   0.0823   |
 |   NBPO [[SIGIR'20](https://dl.acm.org/doi/10.1145/3397271.3401155)]  |   0.0313   |   0.0810   |
-| SimpleX | **0.0338** | **0.0842** |
+| UltraGCN [[CIKM'21](https://arxiv.org/abs/2110.15114)] | 0.0330 | 0.0829 |
+| SimpleX [[CIKM'21](https://arxiv.org/abs/2109.12613)] | **0.0338** | **0.0842** |
 
 + Follow the steps below to reproduce the results
 
@@ -312,7 +311,7 @@ Note that our experiments were conducted in the following environment settings. 
 |   ENMF [[TOIS'20](https://github.com/chenchongthu/ENMF)]  |    0.0748    | **0.0280** |
 |   NGCF [[SIGIR'19](https://arxiv.org/abs/1905.08108)]  |    0.0517    |   0.0193   |
 |   DHCF [[KDD'20](https://dl.acm.org/doi/10.1145/3394486.3403253)]  |    0.0635    |   0.0249   |
-| SimpleX |  **0.0754**  |   0.0269   |
+| SimpleX [[CIKM'21](https://arxiv.org/abs/2109.12613)] |  **0.0754**  |   0.0269   |
 
 + Follow the steps below to reproduce the results
 
@@ -333,11 +332,11 @@ Note that our experiments were conducted in the following environment settings. 
 |   Model  |    F1@20   |   NDCG@20  |  Recall@20 |
 |:--------|:----------:|:----------:|:----------:|
 |   ENMF [[TOIS'20](https://github.com/chenchongthu/ENMF)]   |   0.1640   |   0.2656   |            |
-|   LCFN [[ICML'20](https://arxiv.org/abs/2006.15516)]   |   0.1625   |   0.2603   |            |
 |   NGCF [[SIGIR'19](https://arxiv.org/abs/1905.08108)]   |   0.1582   |   0.2511   |   0.2513   |
+|   LCFN [[ICML'20](https://arxiv.org/abs/2006.15516)]   |   0.1625   |   0.2603   |            |
 | LightGCN [[SIGIR'20](https://arxiv.org/abs/2002.02126)] |            |   0.2427   |   0.2576   |
-| UltraGCN [[CIKM'21](https://arxiv.org/abs/2110.15114)] |            |   0.2642   |   0.2787   |
-|  SimpleX | **0.1658** | **0.2670** | **0.2802** |
+| UltraGCN [[CIKM'21](https://arxiv.org/abs/2110.15114)] |    **0.2004**        |   0.2642   |   0.2787   |
+|  SimpleX [[CIKM'21](https://arxiv.org/abs/2109.12613)] | 0.1658 | **0.2670** | **0.2802** |
 
 
 + Follow the steps below to reproduce the results
